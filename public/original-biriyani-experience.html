@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#100f0c">
+<title>New Chicken Biriyani — A 3D Feast</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
+:root{--bg:#100f0c;--cream:#f4ead8;--muted:#b9ad9b;--gold:#eeb553;--orange:#e96b35;--line:#f4ead822;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--cream);font-family:var(--sans);overflow-x:hidden}a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;cursor:pointer}::selection{background:var(--gold);color:#1a1207}
+#world{position:fixed;inset:0;width:100%;height:100%;z-index:1;display:block;pointer-events:auto;outline:none}
+.world-vignette{position:fixed;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,#100f0cf5 0%,#100f0ccf 33%,#100f0c16 67%,#100f0c99 100%),linear-gradient(0deg,#100f0c 0%,transparent 22%,transparent 76%,#100f0c99 100%)}
+.noise{position:fixed;inset:0;z-index:12;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E")}
+nav{position:fixed;z-index:20;top:0;left:0;right:0;height:78px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #fff1;background:#100f0ca8;backdrop-filter:blur(16px)}.brand{display:flex;align-items:center;gap:11px;font-weight:700;font-size:12px;letter-spacing:.09em}.brand-icon{width:37px;height:37px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,#ffe5a0,#d86b2b);color:#231409;font-size:20px}.brand small{display:block;color:var(--gold);font-size:8px;letter-spacing:.28em;margin-top:4px}.navlinks{display:flex;gap:28px;color:#d4c8b6;font-size:11px}.navlinks a{transition:color .2s}.navlinks a:hover{color:var(--gold)}.nav-actions{display:flex;align-items:center;gap:12px}.pill{display:inline-flex;align-items:center;justify-content:center;gap:13px;border:1px solid #f6c86e8c;border-radius:999px;padding:13px 19px;background:linear-gradient(120deg,#f7c96e,#e97a38);color:#201307;font-size:11px;font-weight:700;transition:transform .25s,box-shadow .25s}.pill:hover{transform:translateY(-3px);box-shadow:0 12px 34px #e96b3533}.sound-btn,.menu-toggle{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#ffffff08;display:grid;place-items:center}.menu-toggle{display:none}
+main{position:relative;z-index:3}.scene-section{position:relative;min-height:100svh;display:flex;align-items:center;padding:125px 8% 90px;isolation:isolate}.scene-section .copy{max-width:510px}.hero{min-height:100svh}.kicker{display:flex;align-items:center;gap:11px;text-transform:uppercase;letter-spacing:.24em;color:var(--gold);font-size:9px;font-weight:700}.kicker:before{content:"";width:26px;height:1px;background:var(--gold)}h1,h2,h3,p{margin-top:0}.hero h1{font:500 clamp(60px,8.4vw,120px)/.87 var(--serif);letter-spacing:-.075em;margin:28px 0}.hero h1 span{display:block}.hero h1 em{color:var(--gold);font-weight:500}.lead{font-size:13px;line-height:1.9;color:#d0c4b2;max-width:395px}.actions{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:28px}.underlink{font-size:11px;border-bottom:1px solid #b6a58b;padding-bottom:5px;color:#e5d8c4}.hero-meta{display:flex;gap:25px;margin-top:46px}.hero-meta div{border-left:1px solid #eeb55366;padding-left:12px;color:#b9ad9b;font-size:9px;text-transform:uppercase;letter-spacing:.1em}.hero-meta strong{display:block;font:500 20px var(--serif);letter-spacing:0;color:var(--cream);margin-bottom:5px}.drag-hint{position:absolute;right:7%;bottom:42px;color:#d8c6a8;font-size:9px;letter-spacing:.18em;text-transform:uppercase;display:flex;align-items:center;gap:10px}.drag-hint span{display:grid;place-items:center;border:1px solid #f4ead855;width:30px;height:30px;border-radius:50%;font-size:15px}
+.section-number{position:absolute;top:115px;left:8%;font-size:9px;letter-spacing:.2em;color:#eeb55390}.split{display:grid;grid-template-columns:1fr 1fr;gap:10%;align-items:center;width:100%}.split .copy{max-width:460px}.section-title{font:500 clamp(43px,5.4vw,76px)/.98 var(--serif);letter-spacing:-.065em;margin:18px 0 23px}.section-title em{color:var(--gold);font-weight:500}.body-copy{font-size:12px;line-height:1.95;color:var(--muted);max-width:430px}.story-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:29px}.story-stats div{padding:15px 0;border-top:1px solid var(--line)}.story-stats strong{display:block;color:var(--gold);font:500 22px var(--serif)}.story-stats span{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:#b8a993}
+.ingredient-list{display:grid;gap:11px;margin-top:25px}.ingredient{display:flex;align-items:center;gap:13px;color:#e5d8c5;font-size:11px}.ingredient b{width:30px;height:30px;border-radius:50%;border:1px solid #eeb55366;display:grid;place-items:center;color:var(--gold);font-size:12px}
+.menu-section{display:block;padding-top:130px;padding-bottom:130px}.menu-top{display:flex;justify-content:space-between;align-items:end;gap:35px;margin-bottom:38px}.menu-top .section-title{margin-bottom:0}.menu-top .body-copy{max-width:310px}.menu-controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}.filter{border:1px solid #f4ead82b;background:#100f0ca8;border-radius:999px;padding:10px 16px;font-size:10px;color:#c8bca8;transition:.2s}.filter.active,.filter:hover{background:var(--gold);color:#1c1208;border-color:var(--gold)}.dish-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.dish{position:relative;min-height:180px;border:1px solid #f4ead822;background:linear-gradient(140deg,#231a12d9,#100f0ce8);padding:21px;backdrop-filter:blur(8px);transition:transform .3s,border-color .3s;overflow:hidden}.dish:before{content:"";position:absolute;right:-50px;top:-60px;width:150px;height:150px;border-radius:50%;background:#eeb5530b;transition:transform .4s}.dish:hover{transform:translateY(-5px);border-color:#eeb55366}.dish:hover:before{transform:scale(1.4)}.dish-head{display:flex;justify-content:space-between;gap:12px;align-items:start;position:relative}.dish h3{font:500 22px var(--serif);margin:0 0 9px}.dish .price{color:var(--gold);font-size:12px;font-weight:700;white-space:nowrap}.dish p{font-size:10px;line-height:1.75;color:var(--muted);max-width:260px;margin-bottom:22px}.dish-foot{display:flex;justify-content:space-between;align-items:center;position:relative}.heat{font-size:9px;color:#e9a56e;letter-spacing:.04em}.dish button{border:1px solid #eeb55366;color:var(--gold);background:#eeb5530c;border-radius:50%;width:31px;height:31px;font-size:18px;transition:.2s}.dish button:hover{background:var(--gold);color:#201307}.menu-note{font-size:9px;color:#958873;margin-top:18px}
+.interlude{min-height:85svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 8%;background:linear-gradient(180deg,transparent,#100f0c4d,transparent)}.interlude .copy{max-width:650px}.interlude h2{font:500 clamp(48px,8vw,105px)/.91 var(--serif);letter-spacing:-.07em;margin:25px 0}.interlude h2 em{color:var(--gold)}.interlude p{color:var(--muted);font-size:12px;line-height:1.9;max-width:410px;margin:0 auto}
+.experience-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:25px}.experience-card{border:1px solid var(--line);background:#100f0ca6;padding:20px;backdrop-filter:blur(6px)}.experience-card strong{font:italic 27px var(--serif);color:var(--gold)}.experience-card h3{font:500 17px var(--serif);margin:13px 0 6px}.experience-card p{font-size:10px;line-height:1.7;color:var(--muted);margin:0}
+.order-section{min-height:80svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:110px 7%;background:radial-gradient(ellipse at 50% 80%,#5527163b,transparent 60%)}.order-section .copy{max-width:650px}.order-section h2{font:500 clamp(52px,8vw,100px)/.92 var(--serif);letter-spacing:-.07em;margin:22px 0}.order-section h2 em{color:var(--gold)}.order-section p{font-size:12px;line-height:1.9;color:var(--muted);max-width:420px;margin:0 auto 27px}.footer{position:relative;z-index:3;padding:30px 7%;border-top:1px solid var(--line);background:#100f0cf2;display:flex;justify-content:space-between;align-items:center;gap:20px;color:#9d907d;font-size:9px;letter-spacing:.13em}.footer strong{color:var(--cream)}.footer-links{display:flex;gap:20px}.footer-links a:hover{color:var(--gold)}.order-fab{position:fixed;z-index:25;right:23px;bottom:22px;border:1px solid #f4c76b;background:var(--gold);color:#211408;border-radius:999px;padding:12px 15px;display:flex;align-items:center;gap:11px;font-size:10px;font-weight:700;box-shadow:0 10px 35px #0008;transform:translateY(90px);transition:transform .3s}.order-fab.show{transform:translateY(0)}.count{width:22px;height:22px;border-radius:50%;background:#211408;color:var(--gold);display:grid;place-items:center}.toast{position:fixed;z-index:30;bottom:25px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#f4ead8;color:#201307;border-radius:999px;padding:12px 18px;font-size:11px;transition:.25s;max-width:90vw;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}.fallback{display:none;position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse at 70% 40%,#58301b,#100f0c 70%);pointer-events:none}
+@media(max-width:900px){.scene-section{padding-left:6%;padding-right:6%}.hero .copy{max-width:460px}.split{gap:5%}.dish-grid{grid-template-columns:repeat(2,1fr)}.section-number{left:6%}.world-vignette{background:linear-gradient(90deg,#100f0cf5 0%,#100f0ccf 42%,#100f0c50 100%),linear-gradient(0deg,#100f0c 0%,transparent 25%,#100f0c80 100%)}}
+@media(max-width:620px){nav{height:68px;padding:0 5%}.brand{font-size:10px}.brand-icon{width:33px;height:33px}.navlinks{display:none;position:absolute;top:68px;left:0;right:0;padding:22px 7%;background:#100f0cf7;flex-direction:column;gap:20px;border-bottom:1px solid var(--line)}.navlinks.open{display:flex}.nav-actions .pill{padding:11px 13px;font-size:9px}.sound-btn{display:none}.menu-toggle{display:grid}.scene-section{min-height:100svh;padding:120px 6% 85px}.hero{align-items:flex-start}.hero .copy{padding-top:15px}.hero h1{font-size:clamp(60px,17vw,90px);margin:24px 0}.lead{max-width:310px;font-size:12px}.hero-meta{gap:12px;margin-top:30px}.hero-meta strong{font-size:17px}.hero-meta div{font-size:8px;padding-left:8px}.drag-hint{right:6%;bottom:25px;font-size:8px}.section-number{top:88px;left:6%}.split{grid-template-columns:1fr;gap:25px}.section-title{font-size:48px}.body-copy{font-size:11px}.story-stats{gap:10px}.menu-section{padding-top:110px}.menu-top{display:block;margin-bottom:26px}.menu-top .body-copy{margin-top:15px}.dish-grid{grid-template-columns:1fr}.dish{min-height:155px;padding:18px}.dish p{max-width:320px;margin-bottom:15px}.interlude{min-height:75svh;padding:110px 6%}.interlude h2{font-size:clamp(48px,14vw,74px)}.experience-grid{gap:8px}.experience-card{padding:14px}.experience-card h3{font-size:15px}.experience-card p{font-size:9px}.order-section{padding:100px 6%}.footer{padding:26px 6%;flex-wrap:wrap}.footer-links{order:3;width:100%;flex-wrap:wrap}.world-vignette{background:linear-gradient(90deg,#100f0ce8 0%,#100f0c9e 52%,#100f0c7a 100%),linear-gradient(0deg,#100f0c 0%,transparent 35%,#100f0c88 100%)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}.order-fab{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="world" aria-label="Interactive real-time 3D biriyani bowl. Drag to rotate."></canvas><div class="fallback"></div><div class="world-vignette"></div><div class="noise"></div>
+<nav><a class="brand" href="#home"><span class="brand-icon">✦</span><span>NEW CHICKEN BIRIYANI<small>THE ART OF A FEAST</small></span></a><div class="navlinks" id="navlinks"><a href="#story">The story</a><a href="#menu">The menu</a><a href="#craft">Our craft</a><a href="#order">Order</a></div><div class="nav-actions"><a class="pill" href="#menu">Explore menu <span>↗</span></a><button class="menu-toggle" id="toggle" aria-label="Open navigation" aria-expanded="false">☰</button></div></nav>
+<main>
+<section class="scene-section hero" id="home" data-scene="0"><div class="copy"><div class="kicker">Fresh from the dum</div><h1>Not just<br>a meal.<br><em>A moment.</em></h1><p class="lead">Fragrant rice. Slow-built masala. Tender chicken. A whole world of flavour, brought to life one grain at a time.</p><div class="actions"><a class="pill" href="#menu">Find your biriyani <span>↗</span></a><a class="underlink" href="#story">Enter the flavour story</a></div><div class="hero-meta"><div><strong>01</strong>Signature recipe</div><div><strong>Slow</strong>Cooked with care</div><div><strong>Full</strong>Of flavour</div></div></div><div class="drag-hint"><span>↔</span> Scroll to drop the chicken leg</div></section>
+<section class="scene-section" id="story" data-scene="1"><span class="section-number">01 / THE STORY</span><div class="split"><div class="copy"><div class="kicker">Made layer by layer</div><h2 class="section-title">The magic is<br>in the <em>layers.</em></h2><p class="body-copy">Great biriyani is never one-note. It starts with the aroma of whole spices, builds through slow-cooked chicken masala, then brings fragrant rice into the story. The result is a plate with depth in every bite.</p><div class="story-stats"><div><strong>Whole spices</strong><span>Warm, fragrant depth</span></div><div><strong>Slow dum</strong><span>Time does the work</span></div><div><strong>Golden rice</strong><span>Fluffy, aromatic grains</span></div><div><strong>Big flavour</strong><span>Worth slowing down for</span></div></div></div><div class="copy"><div class="kicker">The flavour orchestra</div><h2 class="section-title" style="font-size:clamp(32px,4vw,51px)">Every ingredient<br>has a <em>part.</em></h2><p class="body-copy">Scroll from the hero and watch a glazed chicken leg fall into the bowl. The scene combines a photographic food backdrop with real-time 3D movement, steam, and interactive camera choreography. The 3D food scene is built from real-time geometry, not a flat hero image.</p><div class="ingredient-list"><div class="ingredient"><b>✦</b> Fragrant long-grain rice</div><div class="ingredient"><b>✦</b> Deep, toasted spice notes</div><div class="ingredient"><b>✦</b> Tender chicken pieces</div><div class="ingredient"><b>✦</b> Fresh herbs and a bright finish</div></div></div></div></section>
+<section class="scene-section menu-section" id="menu" data-scene="2"><span class="section-number">02 / THE MENU</span><div style="width:100%"><div class="menu-top"><div><div class="kicker">Pick your kind of comfort</div><h2 class="section-title">Choose your <em>feast.</em></h2></div><p class="body-copy">A few moods. One obsession. Choose a biriyani below and watch the 3D bowl shift its flavour colours.</p></div><div class="menu-controls" role="group" aria-label="Filter biriyani types"><button class="filter active" data-filter="all">All favourites</button><button class="filter" data-filter="chicken">Chicken</button><button class="filter" data-filter="special">House specials</button><button class="filter" data-filter="veg">Veg</button></div><div class="dish-grid">
+<article class="dish" data-type="chicken"><div class="dish-head"><h3>Classic Chicken</h3><span class="price">₹189</span></div><p>Our signature plate: tender chicken, fragrant rice and balanced masala.</p><div class="dish-foot"><span class="heat">●●○ Medium warmth</span><button data-dish="classic" aria-label="Select Classic Chicken">↗</button></div></article>
+<article class="dish" data-type="chicken"><div class="dish-head"><h3>Firecracker Chicken</h3><span class="price">₹219</span></div><p>A bolder masala, a little extra heat, and a slow lingering finish.</p><div class="dish-foot"><span class="heat">●●● Extra heat</span><button data-dish="fire" aria-label="Select Firecracker Chicken">↗</button></div></article>
+<article class="dish" data-type="special"><div class="dish-head"><h3>Chicken Dum</h3><span class="price">₹249</span></div><p>Sealed layers of rice and masala, gently finished in their own aroma.</p><div class="dish-foot"><span class="heat">●●○ Deep & aromatic</span><button data-dish="dum" aria-label="Select Chicken Dum">↗</button></div></article>
+<article class="dish" data-type="special"><div class="dish-head"><h3>Royal Special</h3><span class="price">₹279</span></div><p>A generous, celebratory plate with richer spice and extra garnish.</p><div class="dish-foot"><span class="heat">●●○ House favourite</span><button data-dish="royal" aria-label="Select Royal Special">↗</button></div></article>
+<article class="dish" data-type="veg"><div class="dish-head"><h3>Garden Veg</h3><span class="price">₹159</span></div><p>Vegetables, fragrant rice and a warm, balanced spice blend.</p><div class="dish-foot"><span class="heat">●○○ Gentle warmth</span><button data-dish="veg" aria-label="Select Garden Veg">↗</button></div></article>
+<article class="dish" data-type="special"><div class="dish-head"><h3>Feast for Two</h3><span class="price">₹399</span></div><p>Two generous servings. Made for sharing, stories and second helpings.</p><div class="dish-foot"><span class="heat">●●○ Share the joy</span><button data-dish="feast" aria-label="Select Feast for Two">↗</button></div></article>
+</div><p class="menu-note">Demo menu and prices — replace with the restaurant's actual menu before launch.</p></div></section>
+<section class="scene-section interlude" id="craft" data-scene="3"><div class="copy"><div class="kicker" style="justify-content:center">From the first aroma</div><h2>Some things<br>should be <em>slow.</em></h2><p>Let the spices bloom. Let the rice breathe. Let the flavour find its way through every layer. That's the whole point of taking your time.</p><div class="experience-grid"><div class="experience-card"><strong>01</strong><h3>Build the aroma</h3><p>Whole spices give the first note.</p></div><div class="experience-card"><strong>02</strong><h3>Layer with care</h3><p>Rice and masala meet in balance.</p></div><div class="experience-card"><strong>03</strong><h3>Let it settle</h3><p>Slow heat brings everything together.</p></div><div class="experience-card"><strong>04</strong><h3>Serve the moment</h3><p>Hot, fragrant and ready to share.</p></div></div></div></section>
+<section class="scene-section order-section" id="order" data-scene="4"><div class="copy"><div class="kicker" style="justify-content:center">The table is waiting</div><h2>Make room<br>for <em>one more bite.</em></h2><p>Choose your plate, bring your appetite, and make the next meal the one you remember. Select a dish from the menu to build your order picks.</p><a class="pill" href="#menu">Explore the biriyani menu <span>↗</span></a></div></section>
+</main>
+<footer class="footer"><div><strong>NEW CHICKEN BIRIYANI</strong><br><span style="display:block;margin-top:7px">A FEAST IN EVERY GRAIN</span></div><div class="footer-links"><a href="#story">Story</a><a href="#menu">Menu</a><a href="#craft">Our craft</a><a href="#home">Back to top ↑</a></div><span>© <span id="year"></span> New Chicken Biriyani</span></footer>
+<button class="order-fab" id="orderFab"><span>Order picks</span><span class="count" id="count">0</span></button><div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js';
+const canvas=document.querySelector('#world'), fallback=document.querySelector('.fallback');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let renderer,scene,camera,foodGroup,bowlGroup,steamGroup,embers,drumstick,particles=[],riceMeshes=[],chickenMeshes=[],herbMeshes=[],spiceMeshes=[];
+let scrollP=0,mouseX=0,mouseY=0,targetX=0,targetY=0,dragging=false,downX=0,downY=0,rotX=0,rotY=0,prevX=0,prevY=0,dragMoved=false,activeDish='classic';
+const clamp=(v,a,b)=>Math.min(Math.max(v,a),b),mix=(a,b,t)=>a+(b-a)*t;
+const color=(c)=>new THREE.Color(c);
+try{
+ renderer=new THREE.WebGLRenderer({canvas,antialias:innerWidth>700,alpha:true,powerPreference:'high-performance'});
+ renderer.setPixelRatio(Math.min(devicePixelRatio||1,1.6));renderer.setSize(innerWidth,innerHeight,false);
+ renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.2;
+ scene=new THREE.Scene();scene.background=null;scene.fog=new THREE.FogExp2(0x100f0c,.045);
+ camera=new THREE.PerspectiveCamera(34,innerWidth/innerHeight,.1,100);camera.position.set(0,2.7,9.8);
+ scene.add(new THREE.HemisphereLight(0xffd9a1,0x20130b,2.1));
+ const key=new THREE.DirectionalLight(0xffd39a,4.2);key.position.set(-4,7,5);scene.add(key);
+ const rim=new THREE.PointLight(0xff5c24,32,14);rim.position.set(4,2,1);scene.add(rim);
+ const fill=new THREE.PointLight(0xffd58c,15,12);fill.position.set(-4,1,-3);scene.add(fill);
+ const ground=new THREE.Mesh(new THREE.CircleGeometry(8,96),new THREE.MeshBasicMaterial({color:0x100f0c,transparent:true,opacity:.01}));ground.rotation.x=-Math.PI/2;ground.position.y=-1.65;scene.add(ground);
+ foodGroup=new THREE.Group();scene.add(foodGroup);bowlGroup=new THREE.Group();foodGroup.add(bowlGroup);
+ // Ceramic serving bowl, lathed from a profile; the gold rim makes its silhouette readable.
+ const profile=[new THREE.Vector2(0,.12),new THREE.Vector2(.55,.12),new THREE.Vector2(1.1,.22),new THREE.Vector2(1.48,.52),new THREE.Vector2(1.62,.86),new THREE.Vector2(1.61,.94),new THREE.Vector2(1.52,.94),new THREE.Vector2(1.48,.78),new THREE.Vector2(1.28,.51),new THREE.Vector2(.88,.34),new THREE.Vector2(0,.31)];
+ const bowlGeo=new THREE.LatheGeometry(profile,96);bowlGeo.computeVertexNormals();
+ const bowl=new THREE.Mesh(bowlGeo,new THREE.MeshPhysicalMaterial({color:0x4b2017,roughness:.26,metalness:.22,clearcoat:.8,clearcoatRoughness:.16}));bowl.position.y=-.52;bowlGroup.add(bowl);
+ const rimMesh=new THREE.Mesh(new THREE.TorusGeometry(1.565,.035,12,100),new THREE.MeshStandardMaterial({color:0xeeb553,metalness:.8,roughness:.22}));rimMesh.rotation.x=Math.PI/2;rimMesh.position.y=.405;bowlGroup.add(rimMesh);
+ const foot=new THREE.Mesh(new THREE.TorusGeometry(.57,.055,10,64),new THREE.MeshStandardMaterial({color:0x9a6232,metalness:.55,roughness:.32}));foot.rotation.x=Math.PI/2;foot.position.y=-.45;bowlGroup.add(foot);
+ // A dense layer of instanced rice grains across the top surface.
+ const riceGeo=new THREE.CapsuleGeometry(.012,.105,4,7);riceGeo.rotateZ(Math.PI/2);
+ const riceMat=new THREE.MeshStandardMaterial({color:0xffd58a,roughness:.8});
+ const riceCount=4200;const rice=new THREE.InstancedMesh(riceGeo,riceMat,riceCount);rice.instanceMatrix.setUsage(THREE.StaticDrawUsage);riceMeshes.push(rice);bowlGroup.add(rice);
+ const dummy=new THREE.Object3D(),riceColors=[0xffedc0,0xf4d18a,0xffe7a9,0xe9b96e,0xf8dca3];
+ for(let i=0;i<riceCount;i++){const r=Math.sqrt(Math.random())*1.43,theta=Math.random()*Math.PI*2;dummy.position.set(Math.cos(theta)*r,.43+Math.random()*.08,Math.sin(theta)*r);dummy.rotation.set((Math.random()-.5)*.45,Math.random()*Math.PI,(Math.random()-.5)*.45);const s=.65+Math.random()*.75;dummy.scale.set(s,s,s);dummy.updateMatrix();rice.setMatrixAt(i,dummy.matrix);rice.setColorAt(i,color(riceColors[Math.floor(Math.random()*riceColors.length)]));}
+ rice.instanceMatrix.needsUpdate=true;
+
+ // Procedural roast-skin texture generated on a canvas; no downloaded food images.
+ const skinCanvas=document.createElement('canvas');skinCanvas.width=512;skinCanvas.height=512;
+ const skinCtx=skinCanvas.getContext('2d');
+ skinCtx.fillStyle='#8b3519';skinCtx.fillRect(0,0,512,512);
+ for(let i=0;i<22000;i++){
+   const x=Math.random()*512,y=Math.random()*512,r=Math.random()*3.2;
+   skinCtx.fillStyle=['rgba(236,145,61,.12)','rgba(40,13,7,.22)','rgba(255,191,95,.10)','rgba(109,34,12,.18)'][i%4];
+   skinCtx.beginPath();skinCtx.ellipse(x,y,r*1.8,r,Math.random()*Math.PI,0,Math.PI*2);skinCtx.fill();
+ }
+ for(let i=0;i<100;i++){
+   skinCtx.fillStyle='rgba(32,13,8,.42)';skinCtx.beginPath();
+   skinCtx.ellipse(Math.random()*512,Math.random()*512,2+Math.random()*8,1+Math.random()*3,Math.random()*Math.PI,0,Math.PI*2);skinCtx.fill();
+ }
+ const skinTexture=new THREE.CanvasTexture(skinCanvas);skinTexture.colorSpace=THREE.SRGBColorSpace;skinTexture.wrapS=skinTexture.wrapT=THREE.RepeatWrapping;
+ skinTexture.repeat.set(1.4,1.1);
+ const chickenSkin=new THREE.MeshPhysicalMaterial({map:skinTexture,color:0xffffff,roughness:.4,metalness:0,clearcoat:.42,clearcoatRoughness:.3});
+ const chickenGlaze=new THREE.MeshStandardMaterial({color:0xc27636,roughness:.48});
+ const charMaterial=new THREE.MeshStandardMaterial({color:0x30140b,roughness:.82});
+ const boneMaterial=new THREE.MeshStandardMaterial({color:0xf1dfbf,roughness:.62});
+ const chickenPieces=[];
+ function roastPiece(x,z,sx,sy,sz,rot,seedBone=false){
+   const g=new THREE.Group();g.position.set(x,.48,z);g.rotation.y=rot;
+   const geo=new THREE.SphereGeometry(1,40,32);
+   const p=geo.attributes.position;
+   for(let i=0;i<p.count;i++){
+     const x0=p.getX(i),y0=p.getY(i),z0=p.getZ(i);
+     const wave=1+.045*Math.sin(x0*9+z0*5)*Math.cos(y0*7)+.022*Math.sin(z0*17+y0*11);
+     p.setXYZ(i,x0*wave,y0*wave,z0*wave);
+   }
+   geo.computeVertexNormals();
+   const main=new THREE.Mesh(geo,chickenSkin);main.scale.set(sx,sy,sz);g.add(main);
+   // A couple of overlapping lobes create an uneven cooked-meat silhouette.
+   const lobe=new THREE.Mesh(new THREE.SphereGeometry(1,28,22),chickenSkin);
+   lobe.position.set(-sx*.38,sy*.1,sz*.12);lobe.scale.set(sx*.58,sy*.72,sz*.72);g.add(lobe);
+   const glazedPatch=new THREE.Mesh(new THREE.SphereGeometry(1,24,18),chickenGlaze);
+   glazedPatch.position.set(sx*.12,sy*.58,sz*.22);glazedPatch.scale.set(sx*.48,sy*.2,sz*.35);g.add(glazedPatch);
+   // Irregular char flecks embedded across the top surface.
+   for(let i=0;i<28;i++){
+     const a=Math.random()*Math.PI*2,rr=.28+Math.random()*.62;
+     const mark=new THREE.Mesh(new THREE.SphereGeometry(.012+Math.random()*.023,8,6),charMaterial);
+     mark.position.set(Math.cos(a)*sx*rr,sy*(.48+Math.random()*.48),Math.sin(a)*sz*rr);
+     mark.scale.set(1.5,.45,.7);g.add(mark);
+   }
+   if(seedBone){
+     const b=new THREE.Mesh(new THREE.CylinderGeometry(.045,.062,.3,16),boneMaterial);
+     b.position.set(sx*.15,sy*.9,0);b.rotation.z=-.24;g.add(b);
+     const j=new THREE.Mesh(new THREE.SphereGeometry(.075,16,12),boneMaterial);
+     j.position.set(sx*.15,sy*1.1,0);j.scale.set(1,.7,.82);g.add(j);
+   }
+   bowlGroup.add(g);chickenPieces.push(g);chickenMeshes.push(main);return g;
+ }
+ roastPiece(-.78,.16,.3,.25,.38,-.55,true);
+ roastPiece(.12,-.43,.32,.22,.36,.6,false);
+ roastPiece(.72,.28,.27,.23,.33,-.3,false);
+ roastPiece(-.12,.62,.26,.2,.31,.8,false);
+
+ // Scroll-driven hero drumstick: irregular roasted meat, textured skin, charred specks and a tapered bone.
+ drumstick=new THREE.Group();
+ const legGeo=new THREE.SphereGeometry(1,48,36);
+ const lp=legGeo.attributes.position;
+ for(let i=0;i<lp.count;i++){
+   const x=lp.getX(i),y=lp.getY(i),z=lp.getZ(i);
+   const bulge=1+.055*Math.sin(x*8+z*7)*Math.cos(y*5)+.025*Math.sin(z*16+y*9);
+   lp.setXYZ(i,x*bulge,y*bulge,z*bulge);
+ }
+ legGeo.computeVertexNormals();
+ const legMeat=new THREE.Mesh(legGeo,chickenSkin);legMeat.scale.set(.27,.39,.245);legMeat.rotation.z=-.18;drumstick.add(legMeat);
+ const legLobe=new THREE.Mesh(new THREE.SphereGeometry(1,32,24),chickenSkin);legLobe.position.set(-.045,.1,.018);legLobe.scale.set(.205,.235,.2);drumstick.add(legLobe);
+ const legRoastPatch=new THREE.Mesh(new THREE.SphereGeometry(1,24,18),chickenGlaze);legRoastPatch.position.set(-.02,.12,.17);legRoastPatch.scale.set(.14,.17,.055);drumstick.add(legRoastPatch);
+ for(let i=0;i<40;i++){
+   const a=Math.random()*Math.PI*2,yy=-.12+Math.random()*.42;
+   const r=.2*Math.sqrt(Math.max(.05,1-yy*yy));
+   const mark=new THREE.Mesh(new THREE.SphereGeometry(.009+Math.random()*.018,8,6),charMaterial);
+   mark.position.set(Math.cos(a)*r,yy,Math.sin(a)*r);mark.scale.set(1.5,.65,.7);drumstick.add(mark);
+ }
+ const legBone=new THREE.Mesh(new THREE.CylinderGeometry(.038,.058,.36,18),boneMaterial);legBone.position.set(.045,.43,0);legBone.rotation.z=-.14;drumstick.add(legBone);
+ const joint=new THREE.Mesh(new THREE.SphereGeometry(.07,18,14),boneMaterial);joint.position.set(.02,.61,0);joint.scale.set(1,.78,.85);drumstick.add(joint);
+ const joint2=new THREE.Mesh(new THREE.SphereGeometry(.062,16,12),boneMaterial);joint2.position.set(.105,.62,0);joint2.scale.set(.85,.7,.8);drumstick.add(joint2);
+ drumstick.position.set(-.42,4.1,.12);drumstick.rotation.set(.12,0,-.62);foodGroup.add(drumstick);
+
+ // Herb flecks and toasted spice pods.
+ const herbMat=new THREE.MeshStandardMaterial({color:0x426c32,roughness:.82,side:THREE.DoubleSide});
+ const leafShape=new THREE.Shape();leafShape.moveTo(0,0);leafShape.quadraticCurveTo(.07,.045,.14,0);leafShape.quadraticCurveTo(.07,-.045,0,0);
+ const herbGeo=new THREE.ShapeGeometry(leafShape,8);
+ for(let i=0;i<42;i++){const a=Math.random()*Math.PI*2,r=Math.random()*1.32;const h=new THREE.Mesh(herbGeo,herbMat);h.position.set(Math.cos(a)*r,.53+Math.random()*.045,Math.sin(a)*r);h.rotation.set(-Math.PI/2+(Math.random()-.5)*.18,Math.random()*6.28,Math.random()*6.28);h.scale.set(.65+Math.random()*.8,.7+Math.random()*.7,.7);bowlGroup.add(h);herbMeshes.push(h);}
+ const onionMat=new THREE.MeshStandardMaterial({color:0x8e421d,roughness:.75});
+ for(let i=0;i<65;i++){const a=Math.random()*Math.PI*2,r=.18+Math.random()*1.15;const onion=new THREE.Mesh(new THREE.TorusGeometry(.022+Math.random()*.022,.006,5,10),onionMat);onion.position.set(Math.cos(a)*r,.54+Math.random()*.035,Math.sin(a)*r);onion.rotation.set(Math.random()*2,Math.random()*3,Math.random()*2);onion.scale.set(1.6,.65,1);bowlGroup.add(onion);}
+ const podMat=new THREE.MeshStandardMaterial({color:0x5b3020,roughness:.55});
+ for(let i=0;i<10;i++){const a=Math.random()*Math.PI*2,r=.45+Math.random()*.8;const pod=new THREE.Mesh(new THREE.CapsuleGeometry(.045,.12,3,6),podMat);pod.position.set(Math.cos(a)*r,.56,Math.sin(a)*r);pod.rotation.set(.4,Math.random()*3,.7);bowlGroup.add(pod);spiceMeshes.push(pod);}
+ // Fine gold orbit rings, kept behind the food.
+ const ringMat=new THREE.MeshBasicMaterial({color:0xeeb553,transparent:true,opacity:.25});
+ const ring1=new THREE.Mesh(new THREE.TorusGeometry(2.05,.008,6,140),ringMat);ring1.rotation.x=1.12;ring1.rotation.y=.18;ring1.position.y=.1;foodGroup.add(ring1);
+ const ring2=new THREE.Mesh(new THREE.TorusGeometry(2.4,.006,6,140),new THREE.MeshBasicMaterial({color:0xe96b35,transparent:true,opacity:.17}));ring2.rotation.x=1.32;ring2.rotation.y=-.42;ring2.position.y=.15;foodGroup.add(ring2);
+ // Ember particles in 3D space.
+ const emberGeo=new THREE.BufferGeometry(),emberPos=new Float32Array(180*3),emberSpeed=[];
+ for(let i=0;i<180;i++){emberPos[i*3]=(Math.random()-.5)*6;emberPos[i*3+1]=(Math.random()*4)-1.4;emberPos[i*3+2]=(Math.random()-.5)*4;emberSpeed.push(.15+Math.random()*.6);}
+ emberGeo.setAttribute('position',new THREE.BufferAttribute(emberPos,3));
+ embers=new THREE.Points(emberGeo,new THREE.PointsMaterial({color:0xf6b95e,size:.025,transparent:true,opacity:.8,sizeAttenuation:true}));scene.add(embers);particles=emberSpeed;
+ // Steam wisps built from transparent curves, drifting above the bowl.
+ steamGroup=new THREE.Group();foodGroup.add(steamGroup);
+ for(let i=0;i<7;i++){const pts=[];const x=(Math.random()-.5)*1.2,z=(Math.random()-.5)*.8;for(let j=0;j<16;j++){const t=j/15;pts.push(new THREE.Vector3(x+Math.sin(t*5+i)*.12*t,.6+t*(1.1+Math.random()*.15),z+Math.cos(t*4+i)*.08*t));}const curve=new THREE.CatmullRomCurve3(pts);const steamGeometry=new THREE.BufferGeometry().setFromPoints(curve.getPoints(40));const line=new THREE.Line(steamGeometry,new THREE.LineBasicMaterial({color:0xffe6c1,transparent:true,opacity:.17,depthWrite:false}));steamGroup.add(line);}
+ // Decorative ground halo.
+ const halo=new THREE.Mesh(new THREE.CircleGeometry(2.8,96),new THREE.MeshBasicMaterial({color:0x9e401a,transparent:true,opacity:.1,side:THREE.DoubleSide}));halo.rotation.x=-Math.PI/2;halo.position.y=-1.45;foodGroup.add(halo);
+}catch(e){console.error('3D scene failed:',e);canvas.style.display='none';fallback.style.display='block';}
+function resize(){if(!renderer||!camera)return;renderer.setSize(innerWidth,innerHeight,false);renderer.setPixelRatio(Math.min(devicePixelRatio||1,innerWidth<700?1.2:1.6));camera.aspect=innerWidth/innerHeight;camera.fov=innerWidth<700?39:34;camera.updateProjectionMatrix();}
+window.addEventListener('resize',resize);
+const sections=[...document.querySelectorAll('[data-scene]')];
+function updateScroll(){const max=document.documentElement.scrollHeight-innerHeight;scrollP=max>0?window.scrollY/max:0;}
+window.addEventListener('scroll',updateScroll,{passive:true});updateScroll();
+canvas.addEventListener('pointerdown',e=>{if(!renderer)return;dragging=true;dragMoved=false;downX=prevX=e.clientX;downY=prevY=e.clientY;canvas.setPointerCapture?.(e.pointerId);canvas.style.cursor='grabbing';});
+canvas.addEventListener('pointermove',e=>{targetX=(e.clientX/innerWidth-.5)*2;targetY=(e.clientY/innerHeight-.5)*2;if(dragging){const dx=e.clientX-prevX,dy=e.clientY-prevY;if(Math.abs(e.clientX-downX)+Math.abs(e.clientY-downY)>4)dragMoved=true;rotY+=dx*.008;rotX=clamp(rotX+dy*.005,-.35,.35);prevX=e.clientX;prevY=e.clientY;}});
+function endDrag(){dragging=false;canvas.style.cursor='grab'}canvas.addEventListener('pointerup',endDrag);canvas.addEventListener('pointercancel',endDrag);canvas.style.cursor='grab';
+let last=performance.now();
+function animate(now){requestAnimationFrame(animate);if(!renderer||!scene||!camera)return;const dt=Math.min(.04,(now-last)/1000);last=now;
+ const sectionProgress=scrollP;const isMobile=innerWidth<700;
+ // Camera choreography: wide hero -> low detail -> menu orbit -> overhead craft -> closing portrait.
+ const poses=[{x:isMobile?.15:1.85,y:2.35,z:7.9,tx:0,ty:.05,tz:0},{x:-2.25,y:1.65,z:6.2,tx:0,ty:.05,tz:0},{x:isMobile?-.2:2.5,y:3.3,z:7.3,tx:0,ty:.1,tz:0},{x:0,y:5.6,z:5.7,tx:0,ty:0,tz:0},{x:isMobile?-.2:1.6,y:2.3,z:7.4,tx:0,ty:.1,tz:0}];
+ const stops=poses.length-1,t=sectionProgress*stops,idx=Math.min(stops-1,Math.floor(t)),f=clamp(t-idx,0,1),ease=f*f*(3-2*f),a=poses[idx],b=poses[idx+1];
+ const cx=mix(a.x,b.x,ease),cy=mix(a.y,b.y,ease),cz=mix(a.z,b.z,ease);
+ camera.position.x=mix(camera.position.x,cx+(dragging?0:targetX*(isMobile?.15:.32)),.035);
+ camera.position.y=mix(camera.position.y,cy+(dragging?0:-targetY*.18),.035);
+ camera.position.z=mix(camera.position.z,cz,.035);
+ camera.lookAt(0,.05,0);
+ if(foodGroup){foodGroup.rotation.y=mix(foodGroup.rotation.y,rotY+(reduce?0:Math.sin(now*.00022)*.12),.07);foodGroup.rotation.x=mix(foodGroup.rotation.x,rotX+(reduce?0:Math.sin(now*.00017)*.035),.06);foodGroup.position.x=mix(foodGroup.position.x,isMobile?.0:.95,.025);foodGroup.position.y=Math.sin(now*.001)*.055;}
+
+ // The drumstick falls into the bowl as the visitor scrolls away from the hero.
+ if(drumstick){
+   const fall=clamp(scrollP/.19,0,1);
+   const easeOut=1-Math.pow(1-fall,3);
+   drumstick.position.x=mix(-.42,.12,easeOut);
+   drumstick.position.y=mix(4.1,.55,easeOut);
+   drumstick.position.z=mix(.12,.03,easeOut);
+   drumstick.rotation.x=mix(.12,.08,easeOut)+Math.sin(fall*Math.PI*5)*.12*(1-fall);
+   drumstick.rotation.y=mix(0,.32,easeOut);
+   drumstick.rotation.z=mix(-.72,.34,easeOut)+Math.sin(fall*Math.PI*4)*.16*(1-fall);
+   drumstick.scale.setScalar(1+Math.sin(fall*Math.PI*8)*.035*(1-fall));
+ }
+
+ if(embers){const arr=embers.geometry.attributes.position.array;for(let i=0;i<particles.length;i++){arr[i*3+1]+=particles[i]*dt*.22;if(arr[i*3+1]>3.1)arr[i*3+1]=-1.8;arr[i*3]+=(Math.sin(now*.0003+i)*.0008); }embers.geometry.attributes.position.needsUpdate=true;embers.rotation.y=now*.00003;}
+ if(steamGroup)steamGroup.children.forEach((line,i)=>{line.material.opacity=.08+.12*(.5+.5*Math.sin(now*.001+i*1.8));line.position.y=Math.sin(now*.0007+i)*.08;});
+ // Dish choice changes actual scene materials and garnish density.
+ if(bowlGroup){const palette={classic:0x9f3d1d,fire:0xc63e19,dum:0x8b3c1c,royal:0xb35a22,veg:0x8b762d,feast:0xa64b21};chickenMeshes.forEach((m,i)=>{m.material.color.setHex(activeDish==='veg'?0x6c873b:((activeDish==='fire'&&i%2===0)?0xe33e16:palette[activeDish]||palette.classic));});}
+ renderer.render(scene,camera);
+}
+if(renderer)requestAnimationFrame(animate);
+const toggle=document.querySelector('#toggle'),links=document.querySelector('#navlinks');toggle.addEventListener('click',()=>{const open=links.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open));toggle.textContent=open?'×':'☰'});links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{links.classList.remove('open');toggle.textContent='☰';toggle.setAttribute('aria-expanded','false')}));
+document.querySelector('#year').textContent=new Date().getFullYear();
+document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(b=>b.classList.toggle('active',b===btn));document.querySelectorAll('.dish').forEach(card=>card.hidden=btn.dataset.filter!=='all'&&card.dataset.type!==btn.dataset.filter)}));
+const picks=[],fab=document.querySelector('#orderFab'),count=document.querySelector('#count'),toast=document.querySelector('#toast');let toastTimer;
+function showToast(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2200)}
+const dishNames={classic:'Classic Chicken',fire:'Firecracker Chicken',dum:'Chicken Dum',royal:'Royal Special',veg:'Garden Veg',feast:'Feast for Two'};
+document.querySelectorAll('[data-dish]').forEach(btn=>btn.addEventListener('click',()=>{activeDish=btn.dataset.dish;picks.push(dishNames[activeDish]);count.textContent=picks.length;fab.classList.add('show');showToast(`${dishNames[activeDish]} selected — the 3D bowl has changed.`)}));
+fab.addEventListener('click',()=>showToast(picks.length?'Your picks: '+picks.join(' · '):'Choose a dish from the menu.'));
+if(reduce){document.body.classList.add('reduced-motion');}
+</script>
+</body></html>
